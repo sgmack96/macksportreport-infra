@@ -1,0 +1,8 @@
+name = "retail-dashboard-lab"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "RETAIL_ASSETS"
+id = "73d9705dbab44c6d88b6da21c3cc28a3" 
+# (Get ID from the KV section in Cloudflare Dashboard)
