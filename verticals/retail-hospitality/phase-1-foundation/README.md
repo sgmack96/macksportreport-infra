@@ -1,6 +1,6 @@
 ### **README Entry: Phase 1 (Foundation)**
 
-**Goal:** Deployed a serverless, high-performance retail storefront using Cloudflare Workers and Workers KV to decouple application logic from static assets.
+**Goal:** Deployed a serverless, high-performance retail storefront using Cloudflare Workers and Workers KV to decouple application logic from static assets. test
 
 **Architecture Implemented:**
 
