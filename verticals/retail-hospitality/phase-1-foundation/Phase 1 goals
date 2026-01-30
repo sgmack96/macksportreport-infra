@@ -1,0 +1,82 @@
+Lab Instructions: Executing Phase 1
+Goal 1: Global Storefront Acceleration (CDN)
+The Challenge: Ensure high-res product images load instantly.
+
+Enable Tiered Cache:
+
+Go to Caching > Tiered Cache.
+
+Select "Smart Tiered Caching Topology". (This routes traffic through Cloudflare's upper-tier data centers to maximize cache hit rates).
+
+Set Cache Rules (The "Edge" Logic):
+
+Go to Caching > Cache Rules.
+
+Create Rule: "Cache Static Assets".
+
+Expression: (http.request.uri.path.extension in {"jpg" "png" "webp"}).
+
+Setting: Cache Level -> Cache Everything. Edge TTL -> 7 days.
+
+Verification (The "Proof"):
+
+Open your site in Chrome DevTools (Network Tab).
+
+Reload the image twice.
+
+Look for the header: cf-cache-status: HIT.
+
+Note: If it says MISS, reload again. If HIT, you are serving from the Edge.
+
+Goal 2: Secure Checkout (WAF & PCI)
+The Challenge: Protect the "Login" form from SQL Injection.
+
+Strict Encryption:
+
+Go to SSL/TLS > Overview.
+
+Set mode to Full (Strict). (Crucial for PCI DSS).
+
+WAF Configuration:
+
+Go to Security > WAF > Managed Rules.
+
+Enable Cloudflare Managed Ruleset (The Core OWASP rules).
+
+Set the "Sensitivity" to High (since this is a high-value retail target).
+
+Attack Simulation (Do NOT do this on a production customer site):
+
+Go to your login form URL.
+
+Append a mock SQL attack to the URL: retail.macksportreport.com/login?user=' OR 1=1.
+
+Result: You should see the Cloudflare "1020 Access Denied" block page.
+
+Goal 3: Brand Protection (DNSSEC)
+The Challenge: Prevent DNS spoofing.
+
+Enable DNSSEC:
+
+Go to DNS > Settings.
+
+Click Enable DNSSEC.
+
+Note: If your domain registrar is external (e.g., GoDaddy), you must copy the DS Record Cloudflare gives you and paste it into your registrar's dashboard.
+
+Goal 4: POS Protection (Spectrum)
+The Challenge: Secure non-HTTP traffic (TCP). Note: Custom port Spectrum usually requires Enterprise. If you are on a Free/Pro plan, document the Architecture rather than the active config.
+
+The "Architecture" Design:
+
+In a real scenario, you would create a Spectrum app for TCP/2000.
+
+Lab Substitute: Use Cloudflare Tunnel to simulate a secure back-office connection.
+
+Install cloudflared on your laptop.
+
+Run a local service (like a Python simple server).
+
+Tunnel it: cloudflared tunnel --url localhost:8000.
+
+This proves you understand how to proxy traffic without opening firewall ports.
