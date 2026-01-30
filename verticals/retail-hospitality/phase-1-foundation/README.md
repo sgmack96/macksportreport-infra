@@ -1,5 +1,3 @@
-Here is the concise explanation for your README, followed by the "Why KV?" rationale to include as an architectural note.
-
 ### **README Entry: Phase 1 (Foundation)**
 
 **Goal:** Deployed a serverless, high-performance retail storefront using Cloudflare Workers and Workers KV to decouple application logic from static assets.
